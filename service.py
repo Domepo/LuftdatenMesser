@@ -1,35 +1,19 @@
-import sqlite3
-from sensordata import SensorData
-import random
 import requests
+import json
+from time import gmtime, strftime
 
-# import the luftdaten api
-r = requests.get('luftdatenURL', auth=('user', 'pass'))
-r.status_code
-connection = sqlite3.connect("sensorDaten.db")
+from modules.sql.sensorDataSql import SensorDataSQL
+from modules.telegram_bot.telegrambot import sendMessage
+import modules.fetchSensorData.dataFetch as data 
 
-cc = connection.cursor()
+currentTime = strftime("%H:%M:%S")
+currentDay = strftime("%d.%m") 
+r = requests.get('http://192.168.2.120/data.json', auth=('user', 'pass'))
+parsedJson = json.loads(r.text)
+# print(parsedJson["sensordatavalues"][1])
 
-cc.execute("""CREATE TABLE IF NOT EXISTS sensordaten(
-        uhrzeit text,
-        temperatur REAL,
-        luftfeuchtigkeit REAL,
-        pm2_5 REAL,
-        pm10 REAL,
-        wlan_signal text
-    )""")
 
-def insert_data(sensor_data):
-    with connection:
-        cc.execute("""INSERT INTO sensordaten VALUES(:uhrzeit,:temperatur,:luftfeuchtigkeit,:pm2_5,:pm10,:wlan_signal)""",{
-            "uhrzeit": sensor_data.uhrzeit,
-            "temperatur": sensor_data.temperatur,
-            "luftfeuchtigkeit": sensor_data.luftfeuchtigkeit,
-            "pm2_5": sensor_data.pm2_5,
-            "pm10": sensor_data.pm10,
-            "wlan_signal":sensor_data.wlan_signal})
+SensorDataSQL(currentDay, currentTime,data.temperatur(),data.humidity(),data.pm2_5(),data.pm10(),data.wlan_signal()).insert_data()
 
-pp= SensorData("00:01",random.randint(1,1239),random.randint(1,1239),random.randint(1,1239),random.randint(1,1239),"46 Db")
-insert_data(pp)
+# sendMessage("SQL Datenbank bekommt ein Signal")
 
-connection.close()
