@@ -37,9 +37,3 @@ class SensorDataSQL:
                 "wlan_signal":self.wlan_signal})
         connection.close()
 
-#     def pushSQL(self):
-#         insert_data(pp)
-
-
-
-# pp= SensorDataSQL("00:01","asd","as","f","g","46 Db")        
