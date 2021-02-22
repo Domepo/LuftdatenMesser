@@ -10,27 +10,15 @@ with open("conf.json") as file:
     conf = json.loads(file.read())
 
 currentTime = strftime("%H:%M:%S")
-currentDay = strftime("%d.%m")
-
-# Todo:
-# Falls der Server nicht Antwortet, sollte das Aufgezeichnet werden.
-#
-# try:
-#     SensorDataSQL(currentDay, currentTime, data.temperatur(), data.humidity(), data.pm2_5(), data.pm10(), data.wlan_signal()).insert_data()
-# except:
-#     SensorDataSQL(None, None, None, None, None,None, None).insert_data()
+currentDay = strftime("%d.%m.%y")
 
 
+def push_data_to_sql():
+    if(data.test_request() != None):
+        SensorDataSQL(currentDay, currentTime, data.sensor("BME280_temperature"),data.sensor("BME280_humidity"),data.sensor("BME280_pressure"), data.sensor("SDS_P2"), data.sensor("SDS_P1"), data.sensor("signal")).insert_data()
+        print("Daten wurden in die sql gepushed")
+    else:
+       print("Es konnte keine Verbindung zu "+data.url()+" hergestellt werden")
+       sendMessage("Es konnte keine Verbindung hergestellt werden\n"+str(currentTime)+"\n"+ str(currentDay)+"\n"+"URL: "+data.url())
+push_data_to_sql() 
 
-# if(data.temperatur() or
-#         data.humidity() or
-#         data.pressure() or
-#         data.pm2_5() or
-#         data.pm10() or
-#         data.wlan_signal() == "null"
-#         ):# or data.connectionState() == False):
-#     print("asd")
-
-print(data.json_each_sensor("SDS_P1"))
-
-# # sendMessage("SQL Datenbank bekommt ein Signal")
