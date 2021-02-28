@@ -32,6 +32,3 @@ def wind_cloud_weather_data():
     wind_cloud_weather_json["clouds"] = weather_data["clouds"]["all"]
     wind_cloud_weather_json["visibility"] = weather_data["visibility"]
     return wind_cloud_weather_json
-#print(weather_data["visibility"])
-print(basic_weather_data())
-# print(parsedJson["main"]["temp"])r
