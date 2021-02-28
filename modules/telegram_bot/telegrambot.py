@@ -6,8 +6,8 @@ import random
 #Config file
 with open("conf.json") as file:
     conf = json.loads(file.read())
-token = conf["token"]
-chat_id = conf["chat_id"]
+token = conf["telegram_token"]
+chat_id = conf["telegram_chat_id"]
 
 def sendMessage(text):
     requests.get(f"https://api.telegram.org/bot{token}/getUpdates")

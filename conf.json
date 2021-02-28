@@ -1,3 +1,7 @@
 {
-
+    "telegram_token": "",
+    "telegram_chat_id":"",
+    "local_ip":"",
+    "openweather_api_token" : "",
+    "openweather_api_city_id": ""
 }
