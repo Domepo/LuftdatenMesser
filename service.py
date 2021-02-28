@@ -21,4 +21,4 @@ def push_data_to_sql():
        print("Es konnte keine Verbindung zu "+data.url()+" hergestellt werden")
        sendMessage("Es konnte keine Verbindung hergestellt werden\n"+str(currentTime)+"\n"+ str(currentDay)+"\n"+"URL: "+data.url())
 push_data_to_sql() 
-
+ 
