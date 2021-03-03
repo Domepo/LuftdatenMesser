@@ -1,7 +1,7 @@
 {
-    "telegram_token": "1554699322:AAHiipI7SmCTi9KQnz36JUy2r4Ibr8A08lw",
-    "telegram_chat_id":"1623568540",
-    "local_ip":"192.168.2.22",
-    "openwather_api_token" : "3ed3646c2aa1fa632ba8b54a39763d94",
-    "openweather_api_city_id": "2938813"
+    "telegram_token": "",
+    "telegram_chat_id":"",
+    "local_ip":"",
+    "openwather_api_token" : "",
+    "openweather_api_city_id": ""
 }
